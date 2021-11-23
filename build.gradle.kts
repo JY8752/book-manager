@@ -1,9 +1,12 @@
+@file:Suppress("SpellCheckingInspection")
+
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-	id("org.springframework.boot") version "2.5.6"
+	id("org.springframework.boot") version "2.4.3"
 	id("io.spring.dependency-management") version "1.0.11.RELEASE"
-	id("com.arenagod.gradle.MybatisGenerator") version "1.4" //追加
+//	id("com.arenagod.gradle.MybatisGenerator") version "1.4" //追加
+	id("com.thinkimi.gradle.MybatisGenerator") version "2.3"
 	kotlin("jvm") version "1.5.31"
 	kotlin("plugin.spring") version "1.5.31"
 }
@@ -21,12 +24,12 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-	implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0")
+	implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.4")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 
-	implementation("org.mybatis.generator:mybatis-generator:1.4.0")//追加
-	implementation("mysql:mysql-connector-java:8.0.25")//追加
-	implementation("org.mybatis.dynamic-sql:mybatis-dynamic-sql:1.3.0")//追加
+	implementation("org.mybatis.generator:mybatis-generator-core:1.4.0")//追加
+	implementation("mysql:mysql-connector-java:8.0.23")//追加
+	implementation("org.mybatis.dynamic-sql:mybatis-dynamic-sql:1.2.1")//追加
 }
 
 tasks.withType<KotlinCompile> {
@@ -44,4 +47,8 @@ tasks.withType<Test> {
 mybatisGenerator {
 	verbose = true
 	configFile = "${projectDir}/src/main/resources/generatorConfig.xml"
+
+	dependencies {
+		mybatisGenerator("org.mybatis.generator:mybatis-generator-core:1.4.0")
+	}
 }
